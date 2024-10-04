@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     }
 
     public int time = 60;
+    public int Points;
     public GameObject pausePanel;
     bool paused;
 
@@ -58,5 +59,37 @@ public class GameManager : MonoBehaviour
     {
         CancelInvoke();
         Debug.Log("Game Over");
+    }
+
+    public void AddTime(int timeToAdd)
+    {
+        time += timeToAdd;
+        if(time < 1)
+        {
+            time = 1;
+        }
+    }
+
+    public void FreezeTime(int time)
+    {
+        CancelInvoke();
+        InvokeRepeating(nameof(Stopper), time, 1);
+    }
+
+    public int redKeys, greenKeys, goldKeys;
+    public void AddKey(KeyColor color)
+    {
+        switch (color)
+        {
+            case KeyColor.Red:
+                redKeys++;
+                break;
+            case KeyColor.Green:
+                greenKeys++;
+                break;
+            case KeyColor.Gold:
+                goldKeys++;
+                break;
+        }
     }
 }
